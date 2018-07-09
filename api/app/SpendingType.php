@@ -13,11 +13,7 @@ class SpendingRegular extends Model
      * @var array
      */
     protected $fillable = [
-        'email', 
-        'first_name', 
-        'last_name', 
-        'password', 
-        'currency'
+        'name'
     ];
 
     /**

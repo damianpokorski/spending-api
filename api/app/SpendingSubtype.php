@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SpendingRegular extends Model
+class SpendingSubtype extends Model
 {
     public $timestamps = false;
     /**
@@ -13,11 +13,7 @@ class SpendingRegular extends Model
      * @var array
      */
     protected $fillable = [
-        'email', 
-        'first_name', 
-        'last_name', 
-        'password', 
-        'currency'
+        'name'
     ];
 
     /**

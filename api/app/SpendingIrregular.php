@@ -4,20 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SpendingRegular extends Model
+class SpendingIrregular extends Model
 {
-    public $timestamps = false;
+  public $table = 'spending_regular';
+  public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'email', 
-        'first_name', 
-        'last_name', 
-        'password', 
-        'currency'
+        'spending_vendor_id', 
+        'spending_type_id', 
+        'spending_subtype_id', 
+        'necessary', 
+        'label',
+        'delta'
     ];
 
     /**
@@ -25,7 +27,7 @@ class SpendingRegular extends Model
      *
      * @var array
      */
-    protected $hidden = ['id'];
+    protected $hidden = ['user_id'];
 }
 
 
