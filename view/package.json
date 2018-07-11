@@ -17,6 +17,7 @@
     "bootstrap-vue": "^2.0.0-rc.8",
     "chart.js": "^2.7.1",
     "classnames": "^2.2.5",
+    "firebase": "^5.2.0",
     "font-awesome": "^4.7.0",
     "moment": "^2.11.1",
     "npm": "^6.0.0",

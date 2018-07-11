@@ -9,10 +9,17 @@ import '../build/css/mdb.css';
 
 Vue.config.productionTip = false;
 
+// Global references
+window.vuehandler = {};
+window.vuehandler.router = router;
+
+// Firebase 
+import './firebase-handler';
+
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
+window.vuehandler.app = new Vue({
+    el: '#app',
+    router,
+    template: '<App/>',
+    components: { App }
 });

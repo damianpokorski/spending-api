@@ -42,7 +42,8 @@ import ValidationPage from '../docs/ValidationPage';
 import FooterPage from '../docs/FooterPage';
 
 import Index from '../pages/Index';
-
+import SignIn from '../pages/SignIn';
+import SignOut from '../pages/SignOut';
 Vue.use(Router);
 
 export default new Router({
@@ -51,7 +52,16 @@ export default new Router({
             name: 'Home',
             component: Index
         },
-
+        {
+            path: '/sign-in',
+            name: 'Sign-in',
+            component: SignIn
+        },
+        {
+            path: '/sign-out',
+            name: 'Sign-out',
+            component: SignOut
+        },
         // PAGES
         {
             path: '/css',

@@ -1,12 +1,16 @@
 <template>
   <div id="app" class="flyout">
-    <navbar dark position="top" class="default-color" name="MDB Vue" href="#/" scrolling brandStyle="font-weight: bolder;">
+    <navbar dark position="top" class="indigo" name="MDB Vue" href="#/" scrolling brandStyle="font-weight: bolder;">
       <navbar-collapse>
+        <navbar-nav>
+          <navbar-item href="#/" waves-fixed active>Home</navbar-item>
+          <navbar-item href="#/add" waves-fixed>Add</navbar-item>
+          <navbar-item href="#/history" waves-fixed>History</navbar-item>
+        </navbar-nav>
         <navbar-nav right>
-          <navbar-item href="#/" waves-fixed>Home</navbar-item>
-          <navbar-item href="#/css" waves-fixed>CSS</navbar-item>
-          <navbar-item href="#/components" waves-fixed>Components</navbar-item>
-          <navbar-item href="#/advanced" waves-fixed>Advanced</navbar-item>
+          <navbar-item href="#/advanced" waves-fixed>Settings</navbar-item>
+          <navbar-item href="#/sign-out" v-if="signedIn" waves-fixed >Sign Out</navbar-item>
+          <navbar-item href="#/sign-in" v-if="!signedIn"  waves-fixed >Sign In</navbar-item>
         </navbar-nav>
       </navbar-collapse>
     </navbar>
@@ -21,8 +25,6 @@ import Navbar from '@/components/Navbar.vue';
 import NavbarItem from '@/components/NavbarItem.vue';
 import NavbarNav from '@/components/NavbarNav.vue';
 import NavbarCollapse from '@/components/NavbarCollapse.vue';
-import Ftr from '@/components/Footer.vue';
-import EdgHd from '@/components/EdgeHeader.vue';
 
 export default {
   name: 'app',
@@ -30,9 +32,24 @@ export default {
     Navbar,
     NavbarItem,
     NavbarNav,
-    NavbarCollapse,
-    Ftr,
-    EdgHd,
+    NavbarCollapse
+  },
+  mounted: function(){
+    var component = this;
+    window.firebasehandler.onSignedInUpdate((user) => {
+      component.signedIn = !(user == null);
+    });
+  },
+  methods: {
+    signOut: () => {
+        console.log('Signing out!');
+        //window.firebasehandler.signOut();
+    }
+  },
+  data:() =>{
+    return {
+      signedIn: false
+    }
   }
 };
 
