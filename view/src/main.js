@@ -16,6 +16,12 @@ window.vuehandler.router = router;
 // Firebase 
 import './firebase-handler';
 
+// Loading all mdboostrap components globally - YOLO
+import * as components from './all-components';
+Object.keys(components).forEach((key) => {
+    Vue.component(key, components[key]);
+});
+
 /* eslint-disable no-new */
 window.vuehandler.app = new Vue({
     el: '#app',

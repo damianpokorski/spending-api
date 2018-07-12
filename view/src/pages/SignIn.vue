@@ -1,6 +1,6 @@
 <template>
 	<container fluid class="px-0">
-    <modal cascade class="text-left">
+    <modal cascade class="text-left" v-if="showModal" @close="close()">
       <modal-header class="primary-color white-text">
         <h4 class="title"><fa class="fa fa-pencil" /> Sign In</h4>
       </modal-header>
@@ -8,13 +8,13 @@
         <btn color="red mb-1" block @click.native="signInWithGoogle()">
           <fa icon="google" class="mr-1"/> Google
         </btn>
-        <btn color="indigo mb-1" block>
+        <btn color="indigo mb-1" block @click.native="signInWithFacebook()">
           <fa icon="facebook" class="mr-1"/> Facebook
         </btn>
-        <btn color="teal mb-1" block>
+        <btn color="teal mb-1" block @click.native="signInWithTwitter()">
           <fa icon="twitter" class="mr-1"/> Twitter
         </btn>
-        <btn color="black mb-1" block>
+        <btn color="black mb-1" block @click.native="signInWithGithub()">
           <fa icon="github" class="mr-1"/> Github
         </btn>
       </modal-body>
@@ -26,39 +26,45 @@
 </template>
 
 <script>
-import { Container, Column, Row} from 'mdbvue';
-import { Tbl, TblHead, TblBody } from 'mdbvue';
-import { MdInput, MdTextarea } from 'mdbvue';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'mdbvue';
-import { Btn, Fa } from 'mdbvue';
 export default {
   name: 'SignIn',
-  components: {
-    Container, Column, Row,
-    Tbl, TblHead, TblBody,
-    MdInput, MdTextarea,
-    Modal, ModalHeader, ModalBody, ModalFooter, 
-    Btn, Fa
-  },
-  data() {
-    return {
-      showModal: false
-    };
-  },
   mounted: function(){
-    window.firebasehandler.onSignedInUpdate((user) => {
-      if(!(user == null)){
-        window.vuehandler.router.push({ path: '/' })
-      }
+    window.firebasehandler.onSignedIn((user) => {
+        this.signedIn();
     });
+    this.showModal = true;
   },
   methods:{
     close:() => {
       window.vuehandler.router.push({ path: '/' })
     },
+    signedIn: function(){
+      window.vuehandler.router.push({ path: '/signed-in' })
+    },
     signInWithGoogle: () =>{
       window.firebasehandler.signInWithGoogle();
-    }
+    },
+    signInWithFacebook: () =>{
+      window.firebasehandler.signInWithFacebook();
+    },
+    signInWithTwitter: () =>{
+      window.firebasehandler.signInWithTwitter();
+    },
+    signInWithGithub: () =>{
+      window.firebasehandler.signInWithGithub();
+    },
+  },
+  data: function(){
+    return {
+      modal_signing:{
+        title: 'Signing in',
+
+      },
+      modal_pre_sign:{
+        title: 'Sign in'
+      },
+      showModal: false
+    };
   }
 };
 </script>

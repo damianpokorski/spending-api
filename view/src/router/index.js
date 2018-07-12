@@ -43,6 +43,7 @@ import FooterPage from '../docs/FooterPage';
 
 import Index from '../pages/Index';
 import SignIn from '../pages/SignIn';
+import SignedIn from '../pages/SignedIn';
 import SignOut from '../pages/SignOut';
 Vue.use(Router);
 
@@ -56,6 +57,11 @@ export default new Router({
             path: '/sign-in',
             name: 'Sign-in',
             component: SignIn
+        },
+        {
+            path: '/signed-in',
+            name: 'Signed-in',
+            component: SignedIn
         },
         {
             path: '/sign-out',

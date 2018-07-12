@@ -11,12 +11,9 @@ firebase.initializeApp({
     messagingSenderId: "882234971205"
 });
 
-
 firebase.auth().onAuthStateChanged(function(user) {
     // Save user in window scope
     window.firebasehandler.user = user;
-    console.log('auth state changed', window.firebasehandler.user);
-
 });
 
 window.firebase = function() {
@@ -26,12 +23,20 @@ window.firebase = function() {
 window.firebasehandler = {
     user: null,
     onSignedIn: function(func) {
-        firebase.auth().onAuthStateChanged((user) => this.user && func());
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                func(user);
+            }
+        });
     },
     onSignedOut: function(func) {
-        firebase.auth().onAuthStateChanged((user) => (this.user == null) && func());
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user === null) {
+                func();
+            }
+        });
     },
-    onSignedInUpdate: function(func) {
+    onSignedInChanged: function(func) {
         firebase.auth().onAuthStateChanged(func)
     },
     isSignedIn: function() {
@@ -50,6 +55,10 @@ window.firebasehandler = {
     },
     signInWithTwitter: function() {
         var provider = new firebase.auth.TwitterAuthProvider();
+        firebase.auth().signInWithPopup(provider);
+    },
+    signInWithGithub: function() {
+        var provider = new firebase.auth.GithubAuthProvider();
         firebase.auth().signInWithPopup(provider);
     },
     signOut: function() {

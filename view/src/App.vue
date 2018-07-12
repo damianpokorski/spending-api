@@ -21,30 +21,15 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue';
-import NavbarItem from '@/components/NavbarItem.vue';
-import NavbarNav from '@/components/NavbarNav.vue';
-import NavbarCollapse from '@/components/NavbarCollapse.vue';
 
 export default {
   name: 'app',
-  components: {
-    Navbar,
-    NavbarItem,
-    NavbarNav,
-    NavbarCollapse
-  },
   mounted: function(){
     var component = this;
-    window.firebasehandler.onSignedInUpdate((user) => {
+    window.firebasehandler.onSignedInChanged((user) => {
+      console.log('User state updated');
       component.signedIn = !(user == null);
     });
-  },
-  methods: {
-    signOut: () => {
-        console.log('Signing out!');
-        //window.firebasehandler.signOut();
-    }
   },
   data:() =>{
     return {
