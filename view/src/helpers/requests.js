@@ -19,9 +19,9 @@ window.request.build = (method, url, data) => {
     }).then(result => {
         // Global error handling
         return new Promise(function(resolve, reject) {
+            // If status 401 has been returned, relog
             if (result.status == 401) {
                 window.vuehandler.router.push({ path: '/sign-out' });
-                console.log();
                 reject('Your token was invalid, you\' ve been signed out.');
             }
             resolve(result);

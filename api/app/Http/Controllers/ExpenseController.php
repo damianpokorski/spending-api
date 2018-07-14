@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\SpendingType;
+use App\SpendingRegular;
 use Illuminate\Http\Request;
 
-class SpendingTypeController extends Controller
+class ExpenseController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -19,25 +19,25 @@ class SpendingTypeController extends Controller
 
     // POST - C
     public function post(Request $request){
-        $model = SpendingType::create($request->all());
+        $model = Expense::create($request->all());
         $model->save();
         return response()->json($model);
     }
 
     // GET -  R
     public function get($id){
-        return response()->json(SpendingType::find($id));
+        return response()->json(Expense::find($id));
     }
 
     // Update - U
     public function put(Request $request, $id){
-        $model = SpendingType::find($id);
+        $model = Expense::find($id);
         $model->fill($request->all())->save();
         return response()->json($model);
     }
 
     // Delete - D
     public function delete($id){
-        return response()->json(SpendingType::destroy($id));
+        return response()->json(Expense::destroy($id));
     }
 }

@@ -13,11 +13,13 @@ class SpendingRegular extends Model
      * @var array
      */
     protected $fillable = [
+        // id, 
         'email', 
         'first_name', 
         'last_name', 
         'password', 
-        'currency'
+        'currency',
+        // auth token
     ];
 
     /**
@@ -26,6 +28,18 @@ class SpendingRegular extends Model
      * @var array
      */
     protected $hidden = ['id'];
+
+    public function expenses(){
+        return $this->hasMany('App\Expense', 'user_id');
+    }
+
+    public function vendors(){
+        return $this->hasMany('App\Vendor', 'user_id');
+    }
+
+    public function labels(){
+        return $this->hasMany('App\Label', 'user_id');
+    }
 }
 
 

@@ -19,53 +19,45 @@ class InitialMigrations extends Migration
             $table->string('email');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('password');
             $table->string('currency');
+            $table->text('auth_token');
         });
 
         // Regular spending table - for rent, bills etc.
-        Schema::create('spending_regular', function (Blueprint $table) {
+        Schema::create('expense', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('recurrence', ['weekly', 'monthly', 'querterly', 'yearly']);
-            $table->bigInteger('user_id');
-            $table->bigInteger('spending_vendor_id')->nullable(true);
-            $table->bigInteger('spending_type_id')->nullable(true);
-            $table->bigInteger('spending_subtype_id')->nullable(true);
+            $table->enum('recurrence', ['none', 'weekly', 'monthly', 'querterly', 'yearly']);
             $table->boolean('necessary');
-            $table->string('label');
-            $table->string('details');
+            $table->text('details');
             $table->decimal('delta');
-        });
-
-        // Irregular Spending table - for groceries, heavy drinking etc.
-        Schema::create('spending_irregular', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            // Foreign keys
             $table->bigInteger('user_id');
-            $table->bigInteger('spending_vendor_id')->nullable(true);
-            $table->bigInteger('spending_type_id')->nullable(true);
-            $table->bigInteger('spending_subtype_id')->nullable(true);
-            $table->boolean('necessary');
-            $table->string('label');
-            $table->string('details');
-            $table->decimal('delta');
+            $table->bigInteger('vendor_id')->nullable(true);
         });
 
         // Spending Vendors, e.g. Amazon, Ebay, Asda ETC ETC
-        Schema::create('spending_vendor', function (Blueprint $table) {
+        Schema::create('vendor', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            // Foreign keys
+            $table->bigInteger('user_id');
         });
 
-        // Spending type, e.g. Entertainment or Groceries
-        Schema::create('spending_type', function (Blueprint $table) {
+        // Spending Label, e.g. Entertainment or Groceries
+        Schema::create('label', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            // Foreign keys
+            $table->bigInteger('user_id');
         });
 
-        // Spending type, e.g. Entertainment or Groceries
-        Schema::create('spending_subtype', function (Blueprint $table) {
+        // Pivot table
+        Schema::create('expense_label', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            // Foreign keys
+            $table->bigInteger('expense_id');
+            $table->bigInteger('label_id');
         });
     }
 
@@ -78,10 +70,9 @@ class InitialMigrations extends Migration
     {
         //
         Schema::dropIfExists('users');
-        Schema::dropIfExists('regular_spending');
-        Schema::dropIfExists('spending_irregular');
-        Schema::dropIfExists('spending_vendor');
-        Schema::dropIfExists('spending_type');
-        Schema::dropIfExists('spending_subtype');
+        Schema::dropIfExists('expense');
+        Schema::dropIfExists('vendor');
+        Schema::dropIfExists('label');
+        Schema::dropIfExists('expense_label');
     }
 }

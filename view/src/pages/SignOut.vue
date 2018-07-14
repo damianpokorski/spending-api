@@ -16,7 +16,7 @@ export default {
         .showModal()
         .then(window.firebasehandler.signOut)
         .then(this.hideModal)
-        .then(() => window.vuehandler.router.push({ path: '/' }));
+        .then(() => window.vuehandler.router.push({ path: '/sign-in' }));
   },
   data: function(){
     return {
