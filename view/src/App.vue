@@ -25,10 +25,8 @@
 export default {
   name: 'app',
   mounted: function(){
-    var component = this;
     window.firebasehandler.onSignedInChanged((user) => {
-      console.log('User state updated');
-      component.signedIn = !(user == null);
+      this.signedIn = !(user === null);
     });
   },
   data:() =>{

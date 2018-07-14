@@ -29,7 +29,7 @@
 export default {
   name: 'SignIn',
   mounted: function(){
-    window.firebasehandler.onSignedIn((user) => {
+    window.firebasehandler.onSignedIn().then((user) => {
         this.signedIn();
     });
     this.showModal = true;

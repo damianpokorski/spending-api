@@ -1,7 +1,6 @@
 import firebase from 'firebase';
 import 'firebase/auth';
 
-
 firebase.initializeApp({
     apiKey: "AIzaSyBM3pU0LD61ZrheIrxESy4FUHvO7SEgW08",
     authDomain: "spending-api.firebaseapp.com",
@@ -21,23 +20,53 @@ window.firebase = function() {
 };
 
 window.firebasehandler = {
+    // User data
     user: null,
-    onSignedIn: function(func) {
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                func(user);
-            }
+    auth_token: null,
+
+    // Timeout after 30s
+    timeout: (ms = 30000) => {
+        return new Promise((resolve, reject) => setTimeout(() => ('Timeout error (30s)'), 30000));
+    },
+    getAuthToken: () => {
+        return new Promise((resolve, reject) => {
+            window.firebasehandler.onSignedIn().then((user) => {
+                return user.getIdToken().then(token => {
+                    window.firebasehandler.auth_token = token;
+                    resolve(token)
+                });
+            });
+
+            // Timeout after 30s
+            window.firebasehandler.timeout().then(e => reject(e));
         });
     },
-    onSignedOut: function(func) {
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user === null) {
-                func();
-            }
+    onSignedIn: () => {
+        return new Promise((resolve, reject) => {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    resolve(user);
+                }
+            });
+
+            // Timeout after 30s
+            window.firebasehandler.timeout().then(e => reject(e));
         });
     },
-    onSignedInChanged: function(func) {
-        firebase.auth().onAuthStateChanged(func)
+    onSignedOut: () => {
+        return new Promise((resolve, reject) => {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user === null) {
+                    resolve('User not signed in.');
+                }
+            });
+
+            // Timeout after 30s
+            window.firebasehandler.timeout().then(e => reject(e));
+        });
+    },
+    onSignedInChanged: (func) => {
+        return firebase.auth().onAuthStateChanged(func);
     },
     isSignedIn: function() {
         return this.user;

@@ -21,8 +21,10 @@ export default {
   props:['title', 'text'],
   mounted: function(){
       // Pull logged in user details
-      this.name = window.firebasehandler.user.displayName;
-      this.photoURL = window.firebasehandler.user.photoURL;
+      window.firebasehandler.onSignedIn().then(user => {
+        this.name = user.displayName;
+        this.photoURL = user.photoURL;
+      });
   },
   data: function () {
     return {

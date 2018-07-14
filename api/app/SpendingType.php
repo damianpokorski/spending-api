@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SpendingRegular extends Model
+class SpendingType extends Model
 {
     public $timestamps = false;
     /**

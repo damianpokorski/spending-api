@@ -14,8 +14,11 @@ window.vuehandler = {};
 window.vuehandler.router = router;
 
 // Firebase 
-import './firebase-handler';
+import './helpers/firebase-handler';
 
+// Request wrapper
+import './helpers/requests';
+import './helpers/delay';
 // Loading all mdboostrap components globally - YOLO
 import * as components from './all-components';
 Object.keys(components).forEach((key) => {
