@@ -18,48 +18,44 @@ $router->get('/', function () use ($router) {
 // Main api entry
 $router->group(['prefix' => 'api'], function() use ($router){
 
-    // Spending controllers
-    $router->group(['prefix' => 'spending'], function() use ($router){
+    // Irregular spending
+    $router->group(['prefix' => 'expennse'], function() use ($router){
+        $router->post('', 'ExpenseController@post');
+        $router->put('{id}', 'ExpenseController@put');
+        $router->delete('{id}', 'ExpenseController@delete');
+        $router->get('{id}', 'ExpenseController@get');
+    });
 
-        // Irregular spending
-        $router->group(['prefix' => 'irregular'], function() use ($router){
-            $router->post('', 'SpendingIrregularController@post');
-            $router->put('{id}', 'SpendingIrregularController@put');
-            $router->delete('{id}', 'SpendingIrregularController@delete');
-            $router->get('{id}', 'SpendingIrregularController@get');
-        });
+    // Regular spending
+    $router->group(['prefix' => 'label'], function() use ($router){
+        $router->post('', 'LabelController@post');
+        $router->put('{id}', 'LabelController@put');
+        $router->delete('{id}', 'LabelController@delete');
+        $router->get('{id}', 'LabelController@get');
+    });
+    
+    // Sub-Types of spending
+    $router->group(['prefix' => 'user'], function() use ($router){
+        $router->post('', 'UserController@post');
+        $router->put('{id}', 'UserController@put');
+        $router->delete('{id}', 'UserController@delete');
+        $router->get('{id}', 'UserController@get');
+    });
 
-        // Regular spending
-        $router->group(['prefix' => 'regular'], function() use ($router){
-            $router->post('', 'SpendingRegularController@post');
-            $router->put('{id}', 'SpendingRegularController@put');
-            $router->delete('{id}', 'SpendingRegularController@delete');
-            $router->get('{id}', 'SpendingRegularController@get');
-        });
-        
-        // Sub-Types of spending
-        $router->group(['prefix' => 'subtype'], function() use ($router){
-            $router->post('', 'SpendingSubtypeController@post');
-            $router->put('{id}', 'SpendingSubtypeController@put');
-            $router->delete('{id}', 'SpendingSubtypeController@delete');
-            $router->get('{id}', 'SpendingSubtypeController@get');
-        });
-
-        // Types of spending
-        $router->group(['prefix' => 'type'], function() use ($router){
-            $router->post('', 'SpendingTypeController@post');
-            $router->put('{id}', 'SpendingTypeController@put');
-            $router->delete('{id}', 'SpendingTypeController@delete');
-            $router->get('{id}', 'SpendingTypeController@get');
-        });
-        
-        // Vendors
-        $router->group(['prefix' => 'vendor'], function() use ($router){
-            $router->post('', 'SpendingVendorController@post');
-            $router->put('{id}', 'SpendingVendorController@put');
-            $router->delete('{id}', 'SpendingVendorController@delete');
-            $router->get('{id}', 'SpendingVendorController@get');
-        });
+    // Types of spending
+    $router->group(['prefix' => 'type'], function() use ($router){
+        $router->post('', 'TypeController@post');
+        $router->put('{id}', 'TypeController@put');
+        $router->delete('{id}', 'TypeController@delete');
+        $router->get('{id}', 'TypeController@get');
+    });
+    
+    // Vendors
+    $router->group(['prefix' => 'vendor'], function() use ($router){
+        $router->post('', 'VendorController@post');
+        $router->put('{id}', 'VendorController@put');
+        $router->delete('{id}', 'VendorController@delete');
+        $router->get('{id}', 'VendorController@get');
     });
 });
 
