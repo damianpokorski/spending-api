@@ -22,10 +22,12 @@
 
 <script>
 
+let firebase = () => window.helpers.firebasehandler;
+
 export default {
   name: 'app',
   mounted: function(){
-    window.firebasehandler.onSignedInChanged((user) => {
+    firebase().onSignedInChanged((user) => {
       this.signedIn = !(user === null);
     });
   },

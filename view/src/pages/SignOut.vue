@@ -9,14 +9,16 @@
 </template>
 
 <script>
+let firebase = () => window.helpers.firebasehandler;
+
 export default {
   name: 'SignOut',
   mounted: function(){
       this
         .showModal()
-        .then(window.firebasehandler.signOut)
+        .then(firebase().signOut)
         .then(this.hideModal)
-        .then(() => window.vuehandler.router.push({ path: '/sign-in' }));
+        .then(() => window.vue.router.push({ path: '/sign-in' }));
   },
   data: function(){
     return {

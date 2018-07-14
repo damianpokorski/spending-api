@@ -1,5 +1,7 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'firebase/auth';
+
+var firebasehandler = {};
 
 firebase.initializeApp({
     apiKey: "AIzaSyBM3pU0LD61ZrheIrxESy4FUHvO7SEgW08",
@@ -12,14 +14,10 @@ firebase.initializeApp({
 
 firebase.auth().onAuthStateChanged(function(user) {
     // Save user in window scope
-    window.firebasehandler.user = user;
+    firebasehandler.user = user;
 });
 
-window.firebase = function() {
-    return firebase;
-};
-
-window.firebasehandler = {
+firebasehandler = {
     // User data
     user: null,
     auth_token: null,
@@ -30,15 +28,15 @@ window.firebasehandler = {
     },
     getAuthToken: () => {
         return new Promise((resolve, reject) => {
-            window.firebasehandler.onSignedIn().then((user) => {
+            firebasehandler.onSignedIn().then((user) => {
                 return user.getIdToken().then(token => {
-                    window.firebasehandler.auth_token = token;
+                    firebasehandler.auth_token = token;
                     resolve(token)
                 });
             });
 
             // Timeout after 30s
-            window.firebasehandler.timeout().then(e => reject(e));
+            firebasehandler.timeout().then(e => reject(e));
         });
     },
     onSignedIn: () => {
@@ -50,7 +48,7 @@ window.firebasehandler = {
             });
 
             // Timeout after 30s
-            window.firebasehandler.timeout().then(e => reject(e));
+            firebasehandler.timeout().then(e => reject(e));
         });
     },
     onSignedOut: () => {
@@ -62,7 +60,7 @@ window.firebasehandler = {
             });
 
             // Timeout after 30s
-            window.firebasehandler.timeout().then(e => reject(e));
+            firebasehandler.timeout().then(e => reject(e));
         });
     },
     onSignedInChanged: (func) => {
@@ -95,9 +93,7 @@ window.firebasehandler = {
     }
 }
 
-export default {
-    name: 'FirebaseHandler'
-}
+export default firebasehandler;
 // Global references for user since it's going to be used everywhere
 
 window.user = null;

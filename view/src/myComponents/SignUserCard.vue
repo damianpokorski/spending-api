@@ -16,15 +16,15 @@
 </template>
 
 <script>
+let firebase = () => window.helpers.firebasehandler;
+
 export default {
   name: 'SignUserCard',
   props:['title', 'text'],
   mounted: function(){
       // Pull logged in user details
-      window.firebasehandler.onSignedIn().then(user => {
-        this.name = user.displayName;
-        this.photoURL = user.photoURL;
-      });
+      this.name = firebase().user.displayName;
+      this.photoURL = firebase().user.photoURL;
   },
   data: function () {
     return {

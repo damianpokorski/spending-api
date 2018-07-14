@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 // This is a global helper since it's stateless and im lazy. 
-window.request = {};
+var request = {
+    name: 'Wrapper importy for global helpers'
+};
 
 // Base config
-window.request.build = (method, url, data) => {
+request.build = (method, url, data) => {
     return axios({
         baseURL: 'https://spending-api/api',
         url: url,
@@ -21,7 +23,7 @@ window.request.build = (method, url, data) => {
         return new Promise(function(resolve, reject) {
             // If status 401 has been returned, relog
             if (result.status == 401) {
-                window.vuehandler.router.push({ path: '/sign-out' });
+                window.vue.router.push({ path: '/sign-out' });
                 reject('Your token was invalid, you\' ve been signed out.');
             }
             resolve(result);
@@ -29,12 +31,15 @@ window.request.build = (method, url, data) => {
     });
 };
 
-window.request.get = (url, data = {}) => {
+request.get = (url, data = {}) => {
     console.log('POST', url, data);
-    return window.request.build('GET', url, data);
+    return request.build('GET', url, data);
 }
 
-window.request.post = (url, data = {}) => {
+request.post = (url, data = {}) => {
     console.log('POST', url, data);
-    return window.request.build('GET', url, data);
+    return request.build('GET', url, data);
 }
+
+
+export default request;

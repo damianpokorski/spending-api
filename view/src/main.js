@@ -10,15 +10,12 @@ import '../build/css/mdb.css';
 Vue.config.productionTip = false;
 
 // Global references
-window.vuehandler = {};
-window.vuehandler.router = router;
+window.vue = {};
+window.vue.router = router;
 
-// Firebase 
-import './helpers/firebase-handler';
+// Helper functions
+window.helpers = require('./helpers');
 
-// Request wrapper
-import './helpers/requests';
-import './helpers/delay';
 // Loading all mdboostrap components globally - YOLO
 import * as components from './all-components';
 Object.keys(components).forEach((key) => {
@@ -26,7 +23,7 @@ Object.keys(components).forEach((key) => {
 });
 
 /* eslint-disable no-new */
-window.vuehandler.app = new Vue({
+window.vue.app = new Vue({
     el: '#app',
     router,
     template: '<App/>',

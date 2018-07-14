@@ -9,6 +9,7 @@
 </template>
 
 <script>
+let firebase = () => window.helpers.firebasehandler;
 
 export default {
   name: 'SignedIn',
@@ -16,9 +17,9 @@ export default {
       let component = this;
       this
         .showModal()
-        .then(window.firebasehandler.getAuthToken)
+        .then(firebase().getAuthToken)
         .then(this.hideModal)
-        .then(() => window.vuehandler.router.push({ path: '/' }));
+        .then(() => window.vue.router.push({ path: '/' }));
 
   },
   data: function(){

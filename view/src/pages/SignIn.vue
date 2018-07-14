@@ -26,32 +26,33 @@
 </template>
 
 <script>
+let firebase = () => window.helpers.firebasehandler;
 export default {
   name: 'SignIn',
   mounted: function(){
-    window.firebasehandler.onSignedIn().then((user) => {
+    firebase().onSignedIn().then((user) => {
         this.signedIn();
     });
     this.showModal = true;
   },
   methods:{
     close:() => {
-      window.vuehandler.router.push({ path: '/' })
+      window.vue.router.push({ path: '/' })
     },
     signedIn: function(){
-      window.vuehandler.router.push({ path: '/signed-in' })
+      window.vue.router.push({ path: '/signed-in' })
     },
     signInWithGoogle: () =>{
-      window.firebasehandler.signInWithGoogle();
+     firebase().signInWithGoogle();
     },
     signInWithFacebook: () =>{
-      window.firebasehandler.signInWithFacebook();
+      firebase().signInWithFacebook();
     },
     signInWithTwitter: () =>{
-      window.firebasehandler.signInWithTwitter();
+      firebase().signInWithTwitter();
     },
     signInWithGithub: () =>{
-      window.firebasehandler.signInWithGithub();
+      firebase().signInWithGithub();
     },
   },
   data: function(){
