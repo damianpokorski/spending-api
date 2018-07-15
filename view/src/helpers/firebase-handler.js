@@ -26,7 +26,7 @@ firebasehandler = {
     timeout: (ms = 30000) => {
         return new Promise((resolve, reject) => setTimeout(() => ('Timeout error (30s)'), 30000));
     },
-    getAuthToken: () => {
+    getAuthToken: (user = null) => {
         return new Promise((resolve, reject) => {
             firebasehandler.onSignedIn().then((user) => {
                 return user.getIdToken().then(token => {
@@ -43,7 +43,17 @@ firebasehandler = {
         return new Promise((resolve, reject) => {
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
-                    resolve(user);
+                    console.log('Signed in', user.email);
+                    // Get auth token if it's not available
+                    if (firebasehandler.auth_token === null) {
+                        user.getIdToken().then(token => {
+                            console.log('Acquired token', token);
+                            firebasehandler.auth_token = token;
+                            resolve(user)
+                        });
+                    } else {
+                        resolve(user);
+                    }
                 }
             });
 

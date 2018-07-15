@@ -28,7 +28,8 @@ export default {
   name: 'app',
   mounted: function(){
     firebase().onSignedInChanged((user) => {
-      this.signedIn = !(user === null);
+      firebase().onSignedIn().then(() => this.signedIn = true);
+      firebase().onSignedOut().then(() => this.signedIn = true);
     });
   },
   data:() =>{

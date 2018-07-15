@@ -17,7 +17,7 @@ export default {
       let component = this;
       this
         .showModal()
-        .then(firebase().getAuthToken)
+        .then(firebase().onSignedIn)
         .then(this.hideModal)
         .then(() => window.vue.router.push({ path: '/' }));
 

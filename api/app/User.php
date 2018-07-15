@@ -4,7 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SpendingRegular extends Model
+use Illuminate\Http\Request;
+
+
+class User extends Model
 {
     public $timestamps = false;
     /**
@@ -22,6 +25,9 @@ class SpendingRegular extends Model
         // auth token
     ];
 
+
+
+    // public __con
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -29,16 +35,24 @@ class SpendingRegular extends Model
      */
     protected $hidden = ['id'];
 
-    public function expenses(){
+    public static function FromRequest(){
+        return User::where(['email' => $_SERVER['HTTP_X_USER_EMAIL']])->first();
+    }
+
+    public function Expense(){
         return $this->hasMany('App\Expense', 'user_id');
     }
 
-    public function vendors(){
+    public function Vendor(){
         return $this->hasMany('App\Vendor', 'user_id');
     }
 
-    public function labels(){
+    public function Label(){
         return $this->hasMany('App\Label', 'user_id');
+    }
+
+    public function Type(){
+        return $this->hasMany('App\Type', 'user_id');
     }
 }
 

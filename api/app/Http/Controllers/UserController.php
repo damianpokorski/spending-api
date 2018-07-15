@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Base;
 
-use App\SpendingSubtype;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller

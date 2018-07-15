@@ -17,8 +17,8 @@ class InitialMigrations extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('email');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('display_name');
+            $table->string('photo_url', 512);
             $table->string('currency');
             $table->text('auth_token');
         });
