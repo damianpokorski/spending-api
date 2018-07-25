@@ -36,8 +36,9 @@ export default {
     this.showModal = true;
   },
   methods:{
-    close:() => {
-      window.vue.router.push({ path: '/' })
+    close(){
+      this.showModal = false;
+      Promise.prototype.delay(500).then(() => window.vue.router.push({ path: '/' }));
     },
     signedIn: function(){
       window.vue.router.push({ path: '/signed-in' })

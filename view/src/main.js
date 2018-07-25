@@ -6,12 +6,15 @@ import router from './router';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../build/css/mdb.css';
-
 Vue.config.productionTip = false;
 
 // Global references
 window.vue = {};
 window.vue.router = router;
+
+// vSelect is cool
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
 
 // Helper functions
 window.helpers = require('./helpers');

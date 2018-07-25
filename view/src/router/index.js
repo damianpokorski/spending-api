@@ -45,6 +45,7 @@ import Index from '../pages/Index';
 import SignIn from '../pages/SignIn';
 import SignedIn from '../pages/SignedIn';
 import SignOut from '../pages/SignOut';
+import ExpenseAdd from '../pages/ExpenseAdd';
 Vue.use(Router);
 
 export default new Router({
@@ -67,6 +68,11 @@ export default new Router({
             path: '/sign-out',
             name: 'Sign-out',
             component: SignOut
+        },
+        {
+            path: '/expense-add',
+            name: 'Add Expense',
+            component: ExpenseAdd
         },
         // PAGES
         {

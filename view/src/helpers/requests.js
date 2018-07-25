@@ -23,12 +23,12 @@ request.build = (method, url, data) => {
     }).then(result => {
         // Global error handling
         return new Promise(function(resolve, reject) {
-            // If status 401 has been returned, relog
+            // If status 401 (unauthorised) has been returned, relog
             if (result.status == 401) {
                 window.vue.router.push({ path: '/sign-out' });
                 reject('Your token was invalid, you\' ve been signed out.');
             }
-            resolve(result);
+            resolve(result.data);
         });
     });
 };

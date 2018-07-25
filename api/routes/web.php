@@ -47,7 +47,7 @@ $router->group(['prefix' => 'api'], function() use ($router){
     });
 
     UserResource('Expense', $router);
-    UserResource('Label', $router);
+    UserResource('Label', $router);-
     UserResource('Vendor', $router);
 });
 

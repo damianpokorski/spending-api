@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Base;
 
 use Illuminate\Http\Request;
 
@@ -40,8 +40,9 @@ class UserResourceController extends Controller
     }
 
     public function getAll(){
-        $Model = ($this->Model);
-        return response()->json($this->User->$Model()->get());
+        $model = ($this->Model);
+        $items = $model::where('user_id', $this->User->id)->get();
+        return response()->json($items);
     }
 
     // Update - U
