@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Label extends Model
 {
-    protected $table = 'label';
+    public $table = 'label';
     public $timestamps = false;
     /**
      * The attributes that are mass assignable.
@@ -35,6 +35,7 @@ class Label extends Model
             ->belongsTo('App\Expense')
             ->where('user_id', $this->user_id);
     }
+
 }
 
 

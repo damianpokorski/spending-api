@@ -14,7 +14,7 @@ class InitialMigrations extends Migration
     public function up()
     {
         // Users table
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('email');
             $table->string('display_name');
@@ -54,7 +54,6 @@ class InitialMigrations extends Migration
         // Pivot table
         Schema::create('expense_label', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
             // Foreign keys
             $table->bigInteger('expense_id');
             $table->bigInteger('label_id');
@@ -69,7 +68,7 @@ class InitialMigrations extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user');
         Schema::dropIfExists('expense');
         Schema::dropIfExists('vendor');
         Schema::dropIfExists('label');

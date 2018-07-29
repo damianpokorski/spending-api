@@ -51,8 +51,8 @@ export default {
   mounted: function(){
     this.showModal = true;
       // Get list if labels available
-      window.helpers.api.label.getAll().then(() => {
-        console.log('hmm');
+      window.helpers.api.label.getAll().then((labels) => {
+        this.labels =  labels;
       });
   },
   methods: {
@@ -64,15 +64,7 @@ export default {
       Promise.prototype.delay(500).then(() => window.vue.router.push({ path: '/' }));
     },
     add(){
-       window.helpers.api.label.getAll().then(() => {
-        console.log('hmm');
-      });
-      // window.helpers.api.label.getAll().then(existingLabels => {
-      //   console.log(['labels', existingLabels]);
-      //   // find out which labels dont exist
-      //   var missingLabels = this.form.labels.filter(formLabel => existingLabels.filter(existingLabel => existingLabel.name == formLabel));
-      // });
-      //window.helpers.api.expense.post(this.form);
+      window.helpers.api.expense.post(this.form).then(result => console.log(result));
     }
   },
   data: function(){

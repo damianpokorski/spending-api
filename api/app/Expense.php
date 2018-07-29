@@ -27,11 +27,10 @@ class Expense extends Model
 
     public function vendor(){
         return $this
-            ->hasOne('App\Vendor', 'vendor_id')
-            ->where('user_id', $this->user_id);
+            ->belongsTo('App\Vendor', 'vendor_id');
     }
 
-    public function label(){
+    public function labels(){
         return $this->belongsToMany('App\Label', 'expense_label', 'expense_id', 'label_id');
     }
 }

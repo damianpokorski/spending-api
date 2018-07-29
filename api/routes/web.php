@@ -27,6 +27,7 @@ function UserResource($ModelName, &$router){
     $router->group(['prefix' => $Prefix], function() use ($router, $ControllerName){
         $router->post('', $ControllerName.'@post');
         $router->get('', $ControllerName.'@getAll');
+        $router->post('search', $ControllerName.'@search');
         $router->put('', $ControllerName.'@put');
         $router->delete('', $ControllerName.'@delete');
         $router->get('{id}', $ControllerName.'@get');

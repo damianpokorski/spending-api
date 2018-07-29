@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class User extends Model
 {
+    public $table = 'user';
     public $timestamps = false;
     /**
      * The attributes that are mass assignable.
@@ -35,24 +36,24 @@ class User extends Model
      */
     protected $hidden = ['id'];
 
-    public static function FromRequest(){
+    public static function fromRequest(){
         return User::where(['email' => $_SERVER['HTTP_X_USER_EMAIL']])->first();
     }
 
-    public function Expense(){
-        return $this->hasMany('App\Expense', 'user_id');
+    public function expenses(){
+        return $this->hasMany('App\\Expense', 'user_id');
     }
 
-    public function Vendor(){
-        return $this->hasMany('App\Vendor', 'user_id');
+    public function vendors(){
+        return $this->hasMany('App\\Vendor', 'user_id');
     }
 
-    public function Label(){
-        return $this->hasMany('App\Label', 'user_id');
+    public function labels(){
+        return $this->hasMany('App\\Label', 'user_id');
     }
 
-    public function Type(){
-        return $this->hasMany('App\Type', 'user_id');
+    public function types(){
+        return $this->hasMany('App\\Type', 'user_id');
     }
 }
 
