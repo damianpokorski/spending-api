@@ -46,6 +46,7 @@ import SignIn from '../pages/SignIn';
 import SignedIn from '../pages/SignedIn';
 import SignOut from '../pages/SignOut';
 import ExpenseAdd from '../pages/ExpenseAdd';
+import ExpenseView from '../pages/ExpenseView';
 Vue.use(Router);
 
 export default new Router({
@@ -73,6 +74,11 @@ export default new Router({
             path: '/expense-add',
             name: 'Add Expense',
             component: ExpenseAdd
+        },
+        {
+            path: '/expense-view',
+            name: 'View Expenses',
+            component: ExpenseView
         },
         // PAGES
         {

@@ -12,18 +12,21 @@ Vue.config.productionTip = false;
 window.vue = {};
 window.vue.router = router;
 
-// vSelect is cool
+//  VueJs components yeey
 import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
-
-// Helper functions
-window.helpers = require('./helpers');
+Vue.component('v-select', vSelect);
+import Datetime from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
+Vue.use(Datetime);
 
 // Loading all mdboostrap components globally - YOLO
 import * as components from './all-components';
 Object.keys(components).forEach((key) => {
     Vue.component(key, components[key]);
 });
+
+// Helper functions
+window.helpers = require('./helpers');
 
 /* eslint-disable no-new */
 window.vue.app = new Vue({
