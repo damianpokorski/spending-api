@@ -10,18 +10,20 @@ use App\User;
 
 class ExpenseController extends UserResourceController
 {
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->Model = 'App\\Expense';
     }
 
-    public function post(Request $request){
+    public function post(Request $request)
+    {
         // Call parent to create object
         parent::post($request);
 
         // Associate vendor
         $vendor = $request->input('vendor');
-        if(!empty($vendor)){
+        if(!empty($vendor)) {
             $vendor = $this->User
                 ->vendors()
                 ->firstOrCreate(['name' => $vendor]);

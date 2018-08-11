@@ -1,0 +1,1 @@
+phpunit > test-report.html; explorer.exe test-report.html;

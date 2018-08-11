@@ -1,5 +1,24 @@
 <?php
 
+if (!function_exists('UserResource')) {
+    function UserResource($ModelName, &$router)
+    {
+        $Prefix = strtolower($ModelName);
+        $ControllerName = $ModelName.'Controller';
+    
+        // Irregular spending
+        $router->group(
+            ['prefix' => $Prefix], function () use ($router, $ControllerName) {
+                $router->post('', $ControllerName.'@post');
+                $router->get('', $ControllerName.'@getAll');
+                $router->post('search', $ControllerName.'@search');
+                $router->put('', $ControllerName.'@put');
+                $router->delete('', $ControllerName.'@delete');
+                $router->get('{id}', $ControllerName.'@get');
+            }
+        );
+    }
+}
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,44 +30,30 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
-
-/*
-    User for models that belong to user. 
-    Yay for generic approach and no copy pasta
-*/
-function UserResource($ModelName, &$router){
-    $Prefix = strtolower($ModelName);
-    $ControllerName = $ModelName.'Controller';
-
-    // Irregular spending
-    $router->group(['prefix' => $Prefix], function() use ($router, $ControllerName){
-        $router->post('', $ControllerName.'@post');
-        $router->get('', $ControllerName.'@getAll');
-        $router->post('search', $ControllerName.'@search');
-        $router->put('', $ControllerName.'@put');
-        $router->delete('', $ControllerName.'@delete');
-        $router->get('{id}', $ControllerName.'@get');
-    });
-}
-
+$router->get(
+    '/', function () use ($router) {
+        return $router->app->version();
+    }
+);
 
 // Main api entry
-$router->group(['prefix' => 'api'], function() use ($router){
+$router->group(
+    ['prefix' => 'api'], function () use ($router) {
 
-    // Sub-Types of spending
-    $router->group(['prefix' => 'user'], function() use ($router){
-        $router->post('', 'UserController@post');
-        $router->get('', 'UserController@getAll');
-        $router->put('', 'UserController@put');
-        $router->delete('{id}', 'UserController@delete');
-        $router->get('{id}', 'UserController@get');
-    });
+        // Sub-Types of spending
+        $router->group(
+            ['prefix' => 'user'], function () use ($router) {
+                $router->post('', 'UserController@post');
+                $router->get('', 'UserController@getAll');
+                $router->put('', 'UserController@put');
+                $router->delete('{id}', 'UserController@delete');
+                $router->get('{id}', 'UserController@get');
+            }
+        );
 
-    UserResource('Expense', $router);
-    UserResource('Label', $router);-
-    UserResource('Vendor', $router);
-});
+        UserResource('Expense', $router);
+        UserResource('Label', $router);-
+        UserResource('Vendor', $router);
+    }
+);
 

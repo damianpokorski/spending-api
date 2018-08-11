@@ -66,10 +66,12 @@ $app->singleton(
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
-$app->middleware([
+$app->middleware(
+    [
     App\Http\Middleware\CorsMiddleware::class,
     App\Http\Middleware\FirebaseAuth::class
-]);
+    ]
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -97,10 +99,12 @@ $app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
 |
 */
 
-$app->router->group([
+$app->router->group(
+    [
     'namespace' => 'App\Http\Controllers',
-], function ($router) {
-    require __DIR__.'/../routes/web.php';
-});
+    ], function ($router) {
+        include __DIR__.'/../routes/web.php';
+    }
+);
 
 return $app;

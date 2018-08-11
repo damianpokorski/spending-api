@@ -17,12 +17,13 @@ class FirebaseAuth
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure                 $next
      * @return mixed
      */
 
-    public function pass($request, $next){
+    public function pass($request, $next)
+    {
         $response =  $next($request);
         $response->header('x-token-valid', 1);
         return $response;
@@ -32,12 +33,12 @@ class FirebaseAuth
     {
         // Establish variables
         $headers = $request->headers->all();
-        $useremail = $headers['x-user-email'][0];
-        $authtoken = $headers['x-auth-token'][0];
+        $useremail = $headers['x-user-email'][0] ?? '';
+        $authtoken = $headers['x-auth-token'][0] ?? '';
 
         // Check if user exists, and if store token is matching, if so - user been recently authenticated
         $user = \App\User::firstOrCreate(['email' => $useremail]);
-        if($user->auth_token == $authtoken){
+        if($user->auth_token == $authtoken) {
             return $this->pass($request, $next);
         }
         
@@ -51,10 +52,12 @@ class FirebaseAuth
             $verifiedIdToken = $firebase->getAuth()->verifyIdToken($authtoken);
         } catch (InvalidToken $e) {
             return (new Response(['error'=> $e->getMessage()], 401))
-                ->withHeaders([
+                ->withHeaders(
+                    [
                     'x-token-valid' => 0,
                     'Content-Type' => 'application/json'
-                ]);
+                    ]
+                );
         }
         
         // Get user data
@@ -63,7 +66,7 @@ class FirebaseAuth
         // If user token matches
         //print_r($user_verified);
         //die();
-        if($user->email == $useremail && $user_verified->email == $useremail){
+        if($user->email == $useremail && $user_verified->email == $useremail) {
             // Save or update verified data
             $user->auth_token = $authtoken;
             $user->display_name = $user_verified->displayName;
@@ -75,9 +78,11 @@ class FirebaseAuth
 
         // Email supplied in header doesnt match the token
         return (new Response(['error'=> 'Token -> email mismatch.'], 401))
-            ->withHeaders([
+            ->withHeaders(
+                [
                 'x-token-valid' => 0,
                 'Content-Type' => 'application/json'
-            ]);
+                ]
+            );
     }
 }

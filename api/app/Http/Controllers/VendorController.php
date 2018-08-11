@@ -9,7 +9,8 @@ use App\User;
 
 class VendorController extends UserResourceController
 {
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->Model = 'App\\Vendor';
     }

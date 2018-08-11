@@ -18,26 +18,30 @@ class UserController extends Controller
     }
 
     // POST - C
-    public function post(Request $request){
+    public function post(Request $request)
+    {
         $model = UserController::create($request->all());
         $model->save();
         return response()->json($model);
     }
 
     // GET -  R
-    public function get($id){
+    public function get($id)
+    {
         return response()->json(UserController::find($id));
     }
 
     // Update - U
-    public function put(Request $request, $id){
+    public function put(Request $request, $id)
+    {
         $model = UserController::find($id);
         $model->fill($request->all())->save();
         return response()->json($model);
     }
 
     // Delete - D
-    public function delete($id){
+    public function delete($id)
+    {
         return response()->json(UserController::destroy($id));
     }
 }

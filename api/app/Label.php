@@ -26,11 +26,13 @@ class Label extends Model
      */
     protected $hidden = ['id'];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\User', 'user_id');
     }
 
-    public function expenses(){
+    public function expenses()
+    {
         return $this
             ->belongsTo('App\Expense')
             ->where('user_id', $this->user_id);

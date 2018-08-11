@@ -36,23 +36,28 @@ class User extends Model
      */
     protected $hidden = ['id'];
 
-    public static function fromRequest(){
+    public static function fromRequest()
+    {
         return User::where(['email' => $_SERVER['HTTP_X_USER_EMAIL']])->first();
     }
 
-    public function expenses(){
+    public function expenses()
+    {
         return $this->hasMany('App\\Expense', 'user_id');
     }
 
-    public function vendors(){
+    public function vendors()
+    {
         return $this->hasMany('App\\Vendor', 'user_id');
     }
 
-    public function labels(){
+    public function labels()
+    {
         return $this->hasMany('App\\Label', 'user_id');
     }
 
-    public function types(){
+    public function types()
+    {
         return $this->hasMany('App\\Type', 'user_id');
     }
 }

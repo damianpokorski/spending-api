@@ -15,7 +15,8 @@ class Vendor extends Model
     
     protected $hidden = ['user_id'];
 
-    public function expenses(){
+    public function expenses()
+    {
         return $this
             ->belongToMany('App\Expense', 'expense_id')
             ->where('user_id', $this->user_id);
