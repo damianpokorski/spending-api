@@ -1,0 +1,1 @@
+phpcbf --ignore=vendor/* .

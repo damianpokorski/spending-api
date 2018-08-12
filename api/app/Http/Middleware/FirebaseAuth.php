@@ -12,6 +12,7 @@ use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
 use Firebase\Auth\Token\Exception\InvalidToken;
 
+const SDKPATH = '/var/www/spending-api-firebase-adminsdk.json';
 class FirebaseAuth
 {
     /**
@@ -43,7 +44,7 @@ class FirebaseAuth
         }
         
         // Firebase auth
-        $serviceAccount = ServiceAccount::fromJsonFile('/var/www/spending-api-firebase-adminsdk.json');
+        $serviceAccount = ServiceAccount::fromJsonFile(SDKPATH);
         $firebase = (new Factory)
             ->withServiceAccount($serviceAccount)
             ->create();
@@ -61,7 +62,9 @@ class FirebaseAuth
         }
         
         // Get user data
-        $user_verified = $firebase->getAuth()->getUser($verifiedIdToken->getClaim('sub'));
+        $user_verified = $firebase
+            ->getAuth()
+            ->getUser($verifiedIdToken->getClaim('sub'));
 
         // If user token matches
         //print_r($user_verified);
